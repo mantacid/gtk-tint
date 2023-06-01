@@ -1,0 +1,10 @@
+# point to the directory where GTK themes are kept
+theme_dir = '$HOME/.themes/'
+
+# point to the theme to use as a base
+base_theme = ''
+
+# specify the script to use to get the accent color (path)
+accent_source = 'modules/kde_accent.sh'
+
+
