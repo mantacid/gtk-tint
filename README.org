@@ -1,0 +1,21 @@
+* gtk-tint
+
+gtk-tint is a program designed to dynamically update your GTK theme to better match your system. It eliminates the need to create a new GTK theme every time you change your system theme.
+
+** Status
+
+[!NOTE] This project is still under active development.
+
+** Repository Structure
+
+*** gtk-tint.toml
+
+This file, `gtk-tint.toml`, serves as the configuration file. It allows you to specify which theme to tint, how to tint it, and which colors to use for tinting.
+
+*** main.sh
+
+The `main.sh` script is responsible for parsing the base GTK theme. It prepares the base theme for the tinting script by extracting relevant values.
+
+*** inputs/
+
+The `inputs/` directory contains various scripts that determine how the accent colors are selected. If you want to integrate this tool with another program or extend gtk-tint's functionality, you can typically add a file in this directory.
