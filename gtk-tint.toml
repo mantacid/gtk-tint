@@ -1,10 +1,13 @@
-# point to the directory where GTK themes are kept
+## point to the directory where GTK themes are kept
 theme_dir = '$HOME/.themes/'
 
-# point to the theme to use as a base
+## point to the theme to use as a base
 base_theme = ''
 
-# specify the script to use to get the accent color (path)
+## define tint factor to use. gtk-tint uses this value if the input script doesn't provide a tint factor.
+static_tint_factor = 0.2
+
+## specify the script to use to get the accent color (path)
 default_accent_source = "kde_accent"
 
 ## Define more fine-grain rules for tinting, allowing the user to specify different sources for each element
@@ -20,6 +23,5 @@ version = "gtk-2.0"
 [tint.rule]
 selector = "base_color"
 source = "kde_accent"
-factor = "0.5"  # map tint strength to the same range that kde uses. idk what that is tho.
-
+factor = "0.5"  ## this is in a range from 0 to 1
 
