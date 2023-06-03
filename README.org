@@ -16,6 +16,10 @@ This file, `gtk-tint.toml`, serves as the configuration file. It allows you to s
 
 The `main.sh` script is responsible for parsing the base GTK theme. It prepares the base theme for the tinting script by extracting relevant values.
 
+*** toml-parse.py
+
+This script handles the toml parsing, because I couldn't find a good rust or bash implementation. It also converts the toml data into a form that the main script can use, namely an associated array where the keys are concatenations of the subtable values.
+
 *** inputs/
 
 The `inputs/` directory contains various scripts that determine how the accent colors are selected. If you want to integrate this tool with another program or extend gtk-tint's functionality, you can typically add a file in this directory.
