@@ -24,8 +24,8 @@ default_accent_source = "kde_accent"
 subdir = "2.0"
 
 [tint.base_color]
-#source = "kde_accent"
-#factor = "0.2"
+source = "kde_accent"
+factor = "0.2"
 
 [tint.bg_color]
 #source = "kde_accent"
