@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ## TODO: add help functions and case handling, also allow for greater specificity in config with table (later)
 
 ## define working directory
 DIR=$(pwd)
 
 ## get config values, assign relevant ones to global variables used by this script. for now i'll hardcode them.
-DEFAULT_ACCENT_SOURCE='kde-accent'
+DEFAULT_ACCENT_SOURCE='kde-accent.sh'
 
 ## Parse gtkrc. call this function if kreadconfig5 says that the value for widgetstyle is gtk2
 parsegtk2theme(){
@@ -21,6 +21,6 @@ parsegtk2theme(){
 
 ## get accent color. do so by evaluating the function: $(get_accent)
 get_accent(){
-    $DIR/inputs/$DEFAULT_ACCENT_SOURCE.sh
+    $DIR/inputs/$DEFAULT_ACCENT_SOURCE
 }
 

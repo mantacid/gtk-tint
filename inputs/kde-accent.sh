@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ## define the location of the relevant value
 ACCENT_PATH="$HOME/.config/kdeglobals"
 COLORSCHEME_PATH="$HOME/.local/share/color-schemes/$CURRENT_SCHEME.colors"

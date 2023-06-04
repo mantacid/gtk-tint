@@ -9,7 +9,13 @@ base_theme = ''
 static_tint_factor = 0.2
 
 ## specify the script to use to get the accent color (path)
-default_accent_source = "kde_accent"
+default_accent_source = "kde_accent.sh"
+
+## specify a list of output scripts to call.
+outputs = [
+"gtk2.sh",
+"gtk3.sh"
+]
 
 ## Define more fine-grain rules for tinting, allowing the user to specify different sources for each element
 
