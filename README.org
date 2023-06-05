@@ -25,5 +25,4 @@ This script handles the toml parsing, because I couldn't find a good rust or bas
 The `inputs/` directory contains various scripts that determine how the accent colors are selected. If you want to integrate this tool with another program or extend gtk-tint's functionality, you can typically add a file in this directory.
 
 *** outputs/
-
-The `outputs/` directory contains scripts to alter different aspects of the system (ex: gtk-2.0, gtk-3.0, application themes, etc). This is the second folder that custom scripts can get added to to extend functionality.
+The `outputs/` directory contains several directories (herein referred to as "output modules"). Each output module contains a script to execute to alter different aspects of the theme it targets, and a `.toml` file defining module-specific configurations. If you want gtk-tint to also apply to other aspects of your system, this is where you'd put code that does so.

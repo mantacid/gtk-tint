@@ -1,126 +1,24 @@
-## point to the directory where GTK themes are kept
+## main config for gtk-tint
+
+## point to the directory where all GTK themes are kept
 theme_dir = '$HOME/.themes/'
 
 ## point to the theme to use as a base
 ## this is defined explicitly here to prevent tinting an already tintied theme.
 base_theme = ''
 
+## this option defines how to get a base theme for a specific system. it pulls from the inputs/base-theme directory for a script with a matching name.
+base_theme_module = 'gtk2.sh'
+
 ## define tint factor to use. gtk-tint uses this value if the input script doesn't provide a tint factor AND if the fine-grained rules don't override the tint factor for a specific element.
-static_tint_factor = 0.2
+fallback_tint_factor = 0.2
 
-## specify the script to use to get the accent color (path)
-default_accent_source = "kde_accent.sh"
+## specify the module to use to get the accent color (path)
+accent_module = "kde_accent/"
 
-## specify a list of output scripts to call.
+## specify a list of output modules to call.
+## these are directories containing a script, a config for that script, and other supporting files.
 outputs = [
-"gtk2.sh",
-"gtk3.sh"
+"gtk2/",
+"gtk3/"
 ]
-
-## Define more fine-grain rules for tinting, allowing the user to specify different sources for each element
-
-## This uses an array of inline tables to specify the accent source and tint factors for a given gtk theme element/css selector.
-## ENTRY FORMAT
-#[[tint.<selector>]]
-#source = "<input to use>"
-#factor = "<tint factor from 0 to 1>"
-
-## if a theme element doesnt have an entry in this table, or if the table is empty, default to using the source defined in default_accent_source 
-[[tint]]
-subdir = "2.0"
-
-[tint.base_color]
-source = "kde_accent"
-factor = "0.2"
-
-[tint.bg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.tooltip_bg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.selected_bg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.text_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.fg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.tooltip_fg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.selected_fg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.menubar_bg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.menubar_fg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.toolbar_bg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.toolbar_fg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.menu_bg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.menu_fg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.panel_bg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.panel_fg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.link_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.btn_bg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.btn_fg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.titlebar_bg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.titlebar_fg_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.primary_caret_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.secondary_caret_color]
-#source = "kde_accent"
-#factor = "0.2"
-
-[tint.accent_bg_color]
-#source = "kde_accent"
-#factor = "0.2"
