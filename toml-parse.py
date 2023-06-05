@@ -3,9 +3,12 @@ import tomllib
 import pprint
 import sys
 
-## Test the toml config format, load if valid
+## define local names for args passed into this script
+conf_file_path = sys.argv[1]
+
+## Test the toml config format, load if valid. NOTE that python has trouble if you specify the home directory as ~, so use $HOME when calling this script.
 try:
-    with open("gtk-tint.toml", "rb") as f:
+    with open(conf_file_path, "rb") as f:
         conf_data = tomllib.load(f)
 except:
     print("tomllib.TOMLDecodeError: Invalid TOML Format")
@@ -25,7 +28,7 @@ def list_to_dict(L, K):
         out_dict[identifier_key] = trim_dict
     return out_dict
 
-## turn a dictionary <d> into a list of tuples, some of which may contain dictionaries as the second element. prepend keys with the prefix <p>
+## turn a dictionary <d> into a list of tuples, some of which may contain dictionaries as the second element. prepend keys with the prefix <p> MIGHT BE ABLE TO REMOVE
 def tuples_from_layer(d, p):
     tuple_list = []     ## set up empty list to populate
     prefix = str(p + "^")
@@ -38,42 +41,53 @@ def tuples_from_layer(d, p):
         tuple_list.append(z)
     return tuple_list
 
+## function to flatten a list of dictionaries
+## takes the list inside the dictionary d that is paired to the key n, outputs a dict where all keys have p prepended to them
+def flatten_list(d, n, p):
+    prefix = str(p + "^")
+    ## define local var for new list
+    flat_dict = {}
+    list_to_flatten = d[n]
+    ## iterate through list
+    for i in range(len(d[n])):
+        new_name = str(prefix + n + "^" + str(i))
+        flat_dict[new_name] = list_to_flatten[i]
+    return flat_dict
+
+## function to flatten nested dictionaries. call recursively
+## takes in the main dict D, and the key for the subdict d, returns a flattened dictionary where all keys have p prepended to them
+def flatten_dict(D, d, p):
+    prefix = str(p + "^")
+    ## define local empty dict
+    flat_dict = {}
+    dict_to_flatten = D[d]
+    ## iterate through list
+    for k in dict_to_flatten.keys():
+        new_name = str(prefix + d + "^" + k)
+        flat_dict[new_name] = dict_to_flatten[k]
+    return flat_dict
+
 ## babe it's 3AM time for your...
-def dict_flattening(List_of_tuples, prefix):
+def dict_flattening(d, p):  ## d is dict, p is running prefix
     ## in all seriousness though this funciton is infuriating to write.
-    ## right now, its still broken. i cant figure out the recursion. But I have all the necessary functions set up i think.
-    ## define local values & names
-    L = List_of_tuples
-    use_as_id = "subdir"
-    p = str(prefix + "^")
-    temp_list_pre = []
-    temp_list_post = []
-    ## define an index to use in for loops
-    i = 0
-    j = 0
-    
-    ## iterate through tuples, adding any with complicated values (dictionaries mostly) to a temp list
-    for t in L:
-        if type(t[1]) is dict:
-            temp_list_pre[i] = t
-            L.remove(t)
-            i += 1
-        j += 1
-    
-    ## for each tuple in the temp list, set prefix to be tuple[0]+dict[k] and do the dict to tuple thing.
-    for t in temp_list_pre:
-        temp_prefix = str(t[0])
-        nested_dict = dict(t[1])
-        temp_list_post = tuples_from_layer(nested_dict, temp_prefix)
-    
-    ## move all the new tuples to the old list
-    for i in range(len(temp_list_post)):
-        E = temp_list_post[i]
-        L.append(E)
-    
-    ## recurse until no tuples with dict values remain.
-    ## ??????
-        
-conf_list = tuples_from_layer(conf_data, "root")
-flat = dict_flattening(conf_list, "root")
-print(flat)
+    ## WIP
+    prefix = str(p + "^")
+    flat_dict = {}
+    ## recurse through layers, calling flatten_list and flatten_dict where needed.
+    for k in d.keys():
+        if type(d[k]) is dict:
+            pass
+        elif type(d[k]) is list:
+            pass
+        else:
+            new_key = str(prefix + k)
+            flat_dict[new_key] = d[k]
+
+## TESTS for flatten_dict and flatten_list functions, will be removed later
+print(conf_data)
+print("\n")
+x = flatten_list(conf_data, "gtk2")
+y = flatten_dict(x, "gtk2^0")
+print(y)
+z = flatten_dict(y,"gtk2^0^base_color")
+print(z)

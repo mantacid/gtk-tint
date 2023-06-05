@@ -18,7 +18,4 @@ accent_module = "kde_accent/"
 
 ## specify a list of output modules to call.
 ## these are directories containing a script, a config for that script, and other supporting files.
-outputs = [
-"gtk2/",
-"gtk3/"
-]
+outputs = [ 'gtk2/', 'gtk3/', 'gtk4/' ]
