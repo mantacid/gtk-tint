@@ -26,3 +26,6 @@ The `inputs/` directory contains various scripts that determine how the accent c
 
 *** outputs/
 The `outputs/` directory contains several directories (herein referred to as "output modules"). Each output module contains a script to execute to alter different aspects of the theme it targets, and a `.toml` file defining module-specific configurations. If you want gtk-tint to also apply to other aspects of your system, this is where you'd put code that does so.
+
+*** tint-methods/
+This directory contains the compiled binaries used to tint the colors. adding your own compiled scripts is also possible.

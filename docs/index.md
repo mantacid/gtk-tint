@@ -14,10 +14,8 @@ GTK-tint gets an accent color from the source defined in the main config, by usi
 If there isn't a copy of the base theme created by the tool already in the system's themes directory, GTK-tint will create one to alter, so that the base theme is preserved.
 
 ### 2. Processing the Colors
-Then, the tool calls a rust script to tint each color in the base theme with the accent color. Our implementation utilizes the OKlab color space, developed by Björn Ottoson. This colorspace allows us to preserve the lightness or darkness of a theme in a way that looks natural to the human eye.
-
-The factor with which each element gets tinted can be adjusted in the main config.
+Then, the tool calls a binary in the `tint-methods/` directory to tint each color in the base theme with the accent color. Our implementation utilizes the OKlab color space, developed by Björn Ottoson. This colorspace allows us to preserve the lightness or darkness of a theme in a way that looks natural to the human eye. However, it is possible to create and use custom binaries by putting the binary in the `tint-methods/` folder and changing the `tint_method` value in the main config.
 
 ### 3. Update the Theme
-Now that GTK-tint has the tinted colors, it applies them to both the copy of the base theme, and to any number of other theme files specified in the **outputs** section of the config. These optional outputs are also altered by modules, this time in the `outputs` directory.
+Now that GTK-tint has the tinted colors, it applies them to both the copy of the base theme, and to any number of other theme files specified in the **outputs** section of the config. These optional outputs are also altered by modules, this time in the `outputs` directory. Note that each output module also has a config, which stores settings specific to the operation of that module.
 
