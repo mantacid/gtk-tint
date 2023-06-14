@@ -33,10 +33,10 @@ theme_init(){
         ## check if a tinted version of the original theme doesn't alrady exist
         if [[ ! -d $base_abs_path$new_name ]]; then
             ## make a copy of the theme directory, renaming it to differentiate it
-            cp -r $base_abs_path$theme_name $base_abs_path$new_name
+            cp -r "$base_abs_path$theme_name/." $base_abs_path$new_name
             
             ## fix metadata in index.theme to match the new folder name
-            ##WIP
+            theme_init.py $base_abs_path $tint_suffix
             
             ## set target for alteration to be the new directory
             alter_target=$base_abs_path$new_name
