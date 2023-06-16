@@ -13,13 +13,13 @@ MOD_DIR_OTPT="$DIR/outputs/"
 ## get config values, assign relevant ones to global variables used by this script. for now i'll hardcode them.
 ACCENT_MODULE='kde-accent.sh'
 OUTPUT_MODULES={}   ## List of filepaths to module dirs
-BASE_THEME_PATH="$HOME/.themes/"    ## path to the systems themes
+BASE_THEME_PATH="$HOME/theming-test/"    ## path to the systems themes
 
 ## init a global variable to track which theme to work on
 TARGET_THEME=""
 
 ## Function to set up the copied base theme
-## takes the name of the theme ($1) and the path to the theme directory ($2)
+## takes the name of the theme ($1) and the path to the theme directory ($2) 
 theme_init(){
     ## Define local names and values
     theme_name="$1"
@@ -50,15 +50,20 @@ theme_init(){
 }
 
 ## function to call a specific INPUT module script
-## takes the module name ($1), the type ($2) (base_theme or accent)
+## takes the module name ($1), the type ($2) (base_theme/ or accent/) 
 call_input_module(){
     ## define local names
-    mod_name="$1"       ## name of module to be called (must include file extension)
-    mod_type="$2"       ## absolute file path to find module in (must have trailing /)
+    mod_name="$1"       ## name of module to be called (MUST have trailing /)
     
-    full_path=$mod_type$mod_name
-    ## execute the module
-    source $full_path
+    mod_type="$2"       ## absolute file path to find module in (MUST have trailing /)
+    
+    ## look for the shell script named "invoke.sh" within the specified module directory.
+    INVOKE_SCRIPT="invoke.sh"
+    ## every module NEEDS an invoke script, usually adding one to a custom module is a drag-and-drop affair.
+    full_path="$DIR/inputs/$mod_type$mod_name"
+    ## execute the module, passing the directory to the module
+    call="$full_path$INVOKE_SCRIPT"
+    source $call
 }
 
 ## function to call an output module. REMEMBER: this gets recursively called later
@@ -69,4 +74,6 @@ call_output_module(){
     target="$2"
     new_vals="$3"
 }
+
+call_input_module gtk-2.0/ base-theme/
 
