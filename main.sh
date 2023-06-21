@@ -14,6 +14,7 @@ MOD_DIR_OTPT="$DIR/outputs/"
 ACCENT_MODULE='kde-accent.sh'
 OUTPUT_MODULES={}   ## List of filepaths to module dirs
 BASE_THEME_PATH="$HOME/theming-test/"    ## path to the systems themes
+TINT_SUFFIX="-tint"
 
 ## init a global variable to track which theme to work on
 TARGET_THEME=""
@@ -51,11 +52,14 @@ theme_init(){
 
 ## function to call a specific INPUT module script
 ## takes the module name ($1), the type ($2) (base_theme/ or accent/) 
-call_input_module(){
+call_module(){
     ## define local names
     mod_name="$1"       ## name of module to be called (MUST have trailing /)
     
     mod_type="$2"       ## absolute file path to find module in (MUST have trailing /)
+    
+    ## define local name for string of arguments.
+    declare -n args="$3"
     
     ## look for the shell script named "invoke.sh" within the specified module directory.
     INVOKE_SCRIPT="invoke.sh"
@@ -67,7 +71,8 @@ call_input_module(){
 }
 
 ## function to call an output module. REMEMBER: this gets recursively called later
-## takes in module name ($1), the alteration target ($2) and the associated array of colors to pass ($3) 
+## takes in module name ($1), the alteration target ($2) and the associated array of colors to pass ($3)
+## MAY REMOVE LATER IF THE PRIOR FUNCTION CAN BE USED INSTEAD.
 call_output_module(){
     ## define local names
     module="$1"
@@ -75,5 +80,5 @@ call_output_module(){
     new_vals="$3"
 }
 
-call_input_module gtk-2.0/ base-theme/
+call_module gtk-2.0/ base-theme/
 

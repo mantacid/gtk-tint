@@ -19,3 +19,6 @@ Then, the tool calls a binary in the `tint-methods/` directory to tint each colo
 ### 3. Update the Theme
 Now that GTK-tint has the tinted colors, it applies them to both the copy of the base theme, and to any number of other theme files specified in the **outputs** section of the config. These optional outputs are also handled by modules, this time in the `outputs` directory (example: a module that alters the colors of some custom firefox userchrome). Note that each output module also has a config, which stores settings specific to the operation of that module.
 
+## How Can I Customize it?
+GTK-tint's working directory is structured to make adding your own modules and tinting methods easy. For more info on modules and their creation, refer to the section on [modules](custom-modules.md). Documentation on tinting methods is not written yet, but will come soon.
+
