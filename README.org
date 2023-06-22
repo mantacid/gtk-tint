@@ -2,6 +2,11 @@
 
 gtk-tint is a program designed to dynamically update your GTK theme to better match your system. It eliminates the need to create a new GTK theme every time you change your system theme.
 
+** Dependencies:
+Note that modules may have their own dependencies (example: the kde-accent module assumes you have `kreadconfig5` installed on your system), so this section will only list dependencies of the base tool. When making your own modules, be sure to list the module's dependencies in the README file for that module.
+*** Python:
+- CherryPicker
+
 ** Status
 
 [!NOTE] This project is still under active development.

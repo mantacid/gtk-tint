@@ -2,6 +2,7 @@
 import tomllib
 import pprint
 import sys
+from cherrypicker import CherryPicker
 
 ## define local names for args passed into this script
 conf_file_path = sys.argv[1]
@@ -68,34 +69,42 @@ def flatten_dict(D, d):
     return flat_dict
 
 ## babe it's 3AM time for your...
-def dict_flattening(d):  ## d is dict,
+#def dict_flattening(d):  ## d is dict,
     ## in all seriousness though this funciton is infuriating to write.
+    ## wrote this before i found out about cherrypicker. im keeping this in tho.
     ## initialize the type list
-    type_dict = {}
+#    type_dict = {}
     ## set up new dict
-    d_new = {}
-    for k in d.keys():
-        if type(d[k]) is list:  ## this part works, but then it stops. now we just have a dict in a dict instead of a list in a dict, but it doesnt do anything more with it.
-            tmp_dict = flatten_list(d, k)
-            for n in tmp_dict.keys():
-                d_new[n] = tmp_dict[n]
+#    d_new = {}
+#    for k in d.keys():
+#        if type(d[k]) is list:  ## this part works, but then it stops. now we just have a dict in a dict instead of a list in a dict, but it doesnt do anything more with it.
+#            tmp_dict = flatten_list(d, k)
+#            for n in tmp_dict.keys():
+#                d_new[n] = tmp_dict[n]
             #trim_dict = exclude_key(d, k)
-        elif type(d[k]) is dict:
-            tmp_dict = flatten_dict(d, k)
-            for n in tmp_dict.keys():
-                d_new[n] = tmp_dict[n]
+#        elif type(d[k]) is dict:
+#            tmp_dict = flatten_dict(d, k)
+#            for n in tmp_dict.keys():
+#                d_new[n] = tmp_dict[n]
             #trim_dict = exclude_key(d, k)
-        else:
-            pass
+#        else:
+#            pass
     #d_new = trim_dict
     
-    for k in d_new.keys():
-        type_dict[k] = type(d_new[k])
+#    for k in d_new.keys():
+#        type_dict[k] = type(d_new[k])
     ## recursion logic
-    if [dict not in type_dict.values()] and [list not in type_dict.values()]:
-        return d_new
-    else:
-        dict_flattening(d_new)
+#    if [dict not in type_dict.values()] and [list not in type_dict.values()]:
+#        return d_new
+#    else:
+#        dict_flattening(d_new)
+
+def dict_flattening(d):
+    picker = CherryPicker(d)
+    D = picker.flatten(delim='^').get()
+    return D
+    #print(picker.flatten(delim='^').get())
+    
 
 ## TESTS will be removed later
 print(conf_data)
