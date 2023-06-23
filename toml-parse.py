@@ -18,8 +18,26 @@ except:
 def dict_flattening(d):
     picker = CherryPicker(d)
     D = picker.flatten(delim='^').get()
-    return D
+    
+    ## change the delimiter in the dictionary from whitespace to null
+    dictStr = str(D)
+    A = dictStr.replace(" ", "")
+    
+    ## get rid of the brackets
+    B = A.replace("{", "")
+    C = B.replace("}", "")
+    
+    ## replace colons with newlines so that when bash parses this script's output it can iterate over every OTHER value to get key-value pairs
+    D = C.replace(":", "\n")
+    
+    ## add a newline after each pair (and replace ' with ") so that bash can parse it properly.
+    N = D.replace(",", "\n")
+    DICTSTR = N.replace("\'", "")
+    
+    return DICTSTR
     #print(picker.flatten(delim='^').get())
+
+
 
 ## TESTS will be removed later
 #print(conf_data)

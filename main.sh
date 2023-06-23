@@ -72,17 +72,47 @@ call_module(){
     source $call
 }
 
-## Load the config file at the specified path, write a flattened associated array to the variable specified in the second argument
+## Load the config file at the specified path, write a flattened associated array to the empty associated array specified in the second argument
 load_config(){
     ## define local names for arguments
     config_path="$1"
+    declare -A output_array="$2"
+    declare -a holding_array
     
-    ## get the flattened dictionary returned by toml-parse.py WIP
-    #x=$(eval "$(python toml-parse.py $config_path)")
+    ## call the python toml parser and treat the output like a string.
+    CONFSTR=$( python toml-parse.py $config_path )
+    
+    ## save the value of the IFS
+    SAVEIFS=$IFS
+    
+    ## temorarily set the value of the IFS to a newlines
+    IFS=$'\n'
+    
+    ## read the pairs into a holding array (unassociated) to iterte on later
+    readarray -t holding_array <<< "$CONFSTR"
+    
+    ## restore default value of IFS
+    IFS=$SAVEIFS
+    
+    ## iterate through the holding array and create key-value pairs.
+    ## since the keys and values alternate, all we need to do is use every even-indexed list element as a key, and every odd-indexed element as a value.
+    element_count=${#holding_array[@]}
+    for ((i=0 ; i<=$(( element_count - 1)) ; i+=2 )); do
+        j=$(( i + 1 ))
+        #echo ${holding_array[j]}
+        key_at_i="${holding_array[$i]}"
+        val_at_j=${holding_array[$j]}
+        ## for some reason the script is interpreting the values as either directories or commands, and is throwing errors when it cant execute/locate them.
+        ## why.
+        output_array[key_at_i]+="$val_at_j"
+        #echo "$key_at_i = ${output_array[key_at_i]}"
+        #echo ''
+        #echo "$val_at_j"
+    done
 }
 
 
 confstr="$DIR/gtk-tint.toml"
-
-load_config "$confstr"
-
+declare -A CONF_ASSOC_ARR=()
+load_config "$confstr" CONF_ASSOC_ARR
+echo "${!CONF_ASSOC_ARR[@]}"
