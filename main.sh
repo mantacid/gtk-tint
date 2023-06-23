@@ -37,7 +37,7 @@ theme_init(){
             cp -r "$base_abs_path$theme_name/." $base_abs_path$new_name
             
             ## fix metadata in index.theme to match the new folder name
-            theme_init.py $base_abs_path $tint_suffix
+            python theme_init.py $base_abs_path $tint_suffix
             
             ## set target for alteration to be the new directory
             alter_target=$base_abs_path$new_name
@@ -51,7 +51,7 @@ theme_init(){
 }
 
 ## function to call a specific INPUT module script
-## takes the module name ($1), the type ($2) (base_theme/ or accent/) 
+## takes the module name ($1), the type ($2) (inputs/base_theme/, inputs/accent/, or outputs/) 
 call_module(){
     ## define local names
     mod_name="$1"       ## name of module to be called (MUST have trailing /)
@@ -59,26 +59,30 @@ call_module(){
     mod_type="$2"       ## absolute file path to find module in (MUST have trailing /)
     
     ## define local name for string of arguments.
-    declare -n args="$3"
+    arguments="$3"
     
     ## look for the shell script named "invoke.sh" within the specified module directory.
     INVOKE_SCRIPT="invoke.sh"
+    
     ## every module NEEDS an invoke script, usually adding one to a custom module is a drag-and-drop affair.
-    full_path="$DIR/inputs/$mod_type$mod_name"
+    full_path="$DIR/$mod_type$mod_name"
+    
     ## execute the module, passing the directory to the module
     call="$full_path$INVOKE_SCRIPT"
     source $call
 }
 
-## function to call an output module. REMEMBER: this gets recursively called later
-## takes in module name ($1), the alteration target ($2) and the associated array of colors to pass ($3)
-## MAY REMOVE LATER IF THE PRIOR FUNCTION CAN BE USED INSTEAD.
-call_output_module(){
-    ## define local names
-    module="$1"
-    target="$2"
-    new_vals="$3"
+## Load the config file at the specified path, write a flattened associated array to the variable specified in the second argument
+load_config(){
+    ## define local names for arguments
+    config_path="$1"
+    
+    ## get the flattened dictionary returned by toml-parse.py WIP
+    #x=$(eval "$(python toml-parse.py $config_path)")
 }
 
-call_module gtk-2.0/ base-theme/
+
+confstr="$DIR/gtk-tint.toml"
+
+load_config "$confstr"
 
