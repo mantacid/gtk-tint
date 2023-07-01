@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-## TODO: add help functions and case handling, also allow for greater specificity in config with table (later)
-
+## TODO: add help functions and case handling
 ## define working directory
 DIR=$(pwd)
 
@@ -9,12 +8,6 @@ MOD_DIR_INPT="$DIR/inputs"
 MOD_DIR_ACNT="$MOD_DIR_INPT/accent/"
 MOD_DIR_BASE="$MOD_DIR_INPT/base-theme/"
 MOD_DIR_OTPT="$DIR/outputs/"
-
-## get config values, assign relevant ones to global variables used by this script. for now i'll hardcode them.
-ACCENT_MODULE='kde-accent.sh'
-OUTPUT_MODULES={}   ## List of filepaths to module dirs
-BASE_THEME_PATH="$HOME/theming-test/"    ## path to the systems themes
-TINT_SUFFIX="-tint"
 
 ## init a global variable to track which theme to work on
 TARGET_THEME=""
@@ -76,7 +69,7 @@ call_module(){
 load_config(){
     ## define local names for arguments
     config_path="$1"
-    declare -A output_array="$2"
+    declare -n output_array="$2"
     declare -a holding_array
     
     ## call the python toml parser and treat the output like a string.
@@ -99,20 +92,19 @@ load_config(){
     element_count=${#holding_array[@]}
     for ((i=0 ; i<=$(( element_count - 1)) ; i+=2 )); do
         j=$(( i + 1 ))
-        #echo ${holding_array[j]}
         key_at_i="${holding_array[$i]}"
         val_at_j=${holding_array[$j]}
-        ## for some reason the script is interpreting the values as either directories or commands, and is throwing errors when it cant execute/locate them.
-        ## why.
-        output_array[key_at_i]+="$val_at_j"
-        #echo "$key_at_i = ${output_array[key_at_i]}"
-        #echo ''
-        #echo "$val_at_j"
+        
+        output_array[$key_at_i]+=$val_at_j
     done
 }
 
-
+## TESTS for config parser, will remove later!
 confstr="$DIR/gtk-tint.toml"
-declare -A CONF_ASSOC_ARR=()
+declare -A CONF_ASSOC_ARR
+
 load_config "$confstr" CONF_ASSOC_ARR
-echo "${!CONF_ASSOC_ARR[@]}"
+
+for key in "${!CONF_ASSOC_ARR[@]}"; do
+    printf '%s = %s\n' "$key" "${CONF_ASSOC_ARR[$key]}"
+done

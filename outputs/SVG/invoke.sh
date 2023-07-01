@@ -8,7 +8,7 @@ local ARGSTR=$arguments
 
 
 ## define the script to invoke
-local TO_INVOKE="gtk2.sh"
+local TO_INVOKE="svg.sh"
 
 ## define the location of this module
 local mod_loc="$full_path$TO_INVOKE"
