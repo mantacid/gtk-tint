@@ -8,6 +8,7 @@ MOD_DIR_INPT="$DIR/inputs"
 MOD_DIR_ACNT="$MOD_DIR_INPT/accent/"
 MOD_DIR_BASE="$MOD_DIR_INPT/base-theme/"
 MOD_DIR_OTPT="$DIR/outputs/"
+BIN_DIR_TINT="$DIR/tint-methods/"
 
 ## init a global variable to track which theme to work on
 TARGET_THEME=""
@@ -20,8 +21,8 @@ call_module(){
     
     mod_type="$2"       ## absolute file path to find module in (MUST have trailing /)
     
-    ## define local name for string of arguments.
-    arguments="$3"
+    ## define local name for LIST of flags/arguments.
+    #arguments="$3"
     
     ## look for the shell script named "invoke.sh" within the specified module directory.
     INVOKE_SCRIPT="invoke.sh"
@@ -67,6 +68,46 @@ load_config(){
         output_array[$key_at_i]+=$val_at_j
     done
 }
+
+## PRINT USAGE ##
+print_usage(){
+    echo "usage:"
+    echo "-a     define an accent color (sRGB hex code) or source (module name)"
+    echo "-b     define a base color source (module name)"
+    echo "-c     define a tinting method (module name)"
+    echo "-C     use a different config file (path)"
+    echo "-o     define an output (module name)"
+    #echo "-O     initialize a theme associated with a specific module"
+}
+
+## CASE HANDLING ##
+
+while getopts 'a:b:c:C:ho:' flag; do
+  case "${flag}" in
+    a) ACCENT_SRC=${OPTARG}
+        ;; ## specify an accent module
+    b)
+        $BASE_LST=${OPTARG}
+        ;; ## specify a base colorscheme
+    C)
+        CONF_PATH=${OPTARG}
+        ;; ## specify a path to a different config
+    c)
+        ALTER_METHOD=${OPTARG}
+        ;;
+        ## specify a tinting method
+    h)
+        print_usage
+        exit 1
+        ;; ## print help
+    o) 
+        OUT_LST=${OPTARG}
+        ;; ## specify a list of output modules
+    *)
+        break
+        ;; ## continue as normal in the absence of any flags
+  esac
+done
 
 ## TESTS for config parser, will remove later!
 confstr="$DIR/gtk-tint.toml"

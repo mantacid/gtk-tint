@@ -1,5 +1,5 @@
 # INTRO
-GTK-tint was designed to be extensible. For that reason we have made it easy to make your own modules for your specific workflow.
+UniCATE was designed to be extensible. For that reason we have made it easy to make your own modules for your specific workflow.
 
 ## What's a module?
 The term *module* refers to a program or collection of programs that get called by the main script to move information around.

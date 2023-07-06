@@ -2,7 +2,7 @@
 ## INVOKE SCRIPT
 
 ## Use variables from the main script in place of flags and options
-local ARGSTR=$arguments
+#local ARGSTR=$arguments
 
 ## Define Theme init function for GTK2 themes. ##
 
@@ -23,7 +23,7 @@ theme_init(){
             cp -r "$base_abs_path$theme_name/." $base_abs_path$new_name
             
             ## fix metadata in index.theme to match the new folder name
-            python theme_init.py $base_abs_path $tint_suffix
+            python gtk2-init.py $base_abs_path $tint_suffix
             
             ## set target for alteration to be the new directory
             alter_target=$base_abs_path$new_name
@@ -36,7 +36,19 @@ theme_init(){
     fi
 }
 ## case handling
-
+## WIP, Will be responsible for initializing themes.
+while getopts '-i' flag; do
+  case "${flag}" in
+    i)
+        ## Take in a LIST of arguments for the theme_init funciton
+        arglist=${OPTARG}
+        theme_name=${arglist[0]}
+        theme_path=${arglist[1]}
+        theme_init theme_name theme_path ;;
+    *) print_usage
+       exit 1 ;;
+  esac
+done
 
 ## define the script to invoke
 local TO_INVOKE="gtk2.sh"

@@ -1,9 +1,0 @@
-## Config values used by the SVG output module.
-[[classes]]
-## Define a universal prefix
-pref = 'GTKt-'
-
-## define all the suffixes
-[classes.fallbacks]
-name = 'main'
-factor = 1.0

@@ -1,6 +1,8 @@
-* gtk-tint
+*** NOTICE
+Because the applicability of the project has increased, I have decided to rename it to reflect this. The repository will still be here, but I may move it in the future. I will handle making sure that people coming to this page know where to find the new repo when it goes up.
 
-gtk-tint is a program designed to dynamically update your GTK theme to better match your system. It eliminates the need to create a new GTK theme every time you change your system theme.
+* UniCATE (Previously GTK-Tint
+UniCATE (Unify Colors Across Theme Engines) is a program designed to dynamically update various elements of your linux environment to allow for a more unified look.
 
 ** Dependencies:
 Note that modules may have their own dependencies (example: the kde-accent module assumes you have `kreadconfig5` installed on your system), so this section will only list dependencies of the base tool. When making your own modules, be sure to list the module's dependencies in the README file for that module.
@@ -13,13 +15,13 @@ Note that modules may have their own dependencies (example: the kde-accent modul
 
 ** Repository Structure
 
-*** gtk-tint.toml
+*** mian-conf.toml
 
 This file, `gtk-tint.toml`, serves as the configuration file. It allows you to specify which theme to tint, how to tint it, and which colors to use for tinting.
 
-*** main.sh
+*** unicate.sh
 
-The `main.sh` script is responsible for parsing the base GTK theme. It prepares the base theme for the tinting script by extracting relevant values.
+The `main.sh` script is responsible for organizing the modules and providing a consistent framework through which to utilize them.
 
 *** toml-parse.py
 
@@ -38,4 +40,4 @@ The `outputs/` directory contains several directories (herein referred to as "ou
 This directory contains the compiled binaries used to tint the colors. adding your own compiled scripts is also possible.
 
 ** MODULES
-A module is a collection of scripts that can be run by GTK-tint to either read or write relevant data. Each module gets its own subdirectory, and contains an `invoke.sh` file. More information on modules can be found in the documentation section by the same name.
+A module is a collection of scripts that can be run by UniCATE to either read or write relevant data. Each module gets its own subdirectory, and contains an `invoke.sh` file. More information on modules can be found in the documentation section by the same name.
