@@ -4,6 +4,37 @@
 ## Use variables from the main script in place of flags and options
 local ARGSTR=$arguments
 
+## Define Theme init function for GTK2 themes. ##
+
+## takes the name of the theme ($1) and the path to the theme directory ($2) 
+theme_init(){
+    ## Define local names and values
+    theme_name="$1"
+    base_abs_path="$2"
+    ## values that dictate how the theme copy gets renamed
+    tint_suffix="-tint"
+    new_name=$theme_name$tint_suffix
+    
+    ## check if passed original theme is actually a directory
+    if [[ -d $base_abs_path$theme_name ]]; then
+        ## check if a tinted version of the original theme doesn't alrady exist
+        if [[ ! -d $base_abs_path$new_name ]]; then
+            ## make a copy of the theme directory, renaming it to differentiate it
+            cp -r "$base_abs_path$theme_name/." $base_abs_path$new_name
+            
+            ## fix metadata in index.theme to match the new folder name
+            python theme_init.py $base_abs_path $tint_suffix
+            
+            ## set target for alteration to be the new directory
+            alter_target=$base_abs_path$new_name
+        else
+            ## set target for alteration to be the tint directory
+            alter_target=$base_abs_path$new_name
+        fi
+    else
+        echo "ERROR: main.sh: $theme_name is either not a directory or does not exist"
+    fi
+}
 ## case handling
 
 
