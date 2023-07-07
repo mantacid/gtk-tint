@@ -1,11 +1,11 @@
 *** NOTICE
 Because the applicability of the project has increased, I have decided to rename it to reflect this. The repository will still be here, but I may move it in the future. I will handle making sure that people coming to this page know where to find the new repo when it goes up.
 
-* UniCATE (Previously GTK-Tint
+* UniCATE (Previously GTK-Tint)
 UniCATE (Unify Colors Across Theme Engines) is a program designed to dynamically update various elements of your linux environment to allow for a more unified look.
 
 ** Dependencies:
-Note that modules may have their own dependencies (example: the kde-accent module assumes you have `kreadconfig5` installed on your system), so this section will only list dependencies of the base tool. When making your own modules, be sure to list the module's dependencies in the README file for that module.
+Note that modules may have their own dependencies (example: the kde-accent module assumes you have `kreadconfig5` installed on your system), so this section will only list dependencies of the base tool. When making your own modules, be sure to include those dependencies in some kind of build file, or at least a readme.
 *** Python:
 - CherryPicker
 
@@ -15,13 +15,13 @@ Note that modules may have their own dependencies (example: the kde-accent modul
 
 ** Repository Structure
 
-*** mian-conf.toml
+*** main-conf.toml
 
-This file, `gtk-tint.toml`, serves as the configuration file. It allows you to specify which theme to tint, how to tint it, and which colors to use for tinting.
+This file, `main-conf.toml`, serves as the configuration file. It allows you to specify which theme to tint, how to tint it, and which colors to use for tinting.
 
 *** unicate.sh
 
-The `main.sh` script is responsible for organizing the modules and providing a consistent framework through which to utilize them.
+The `unicate.sh` script is responsible for organizing the modules and providing a consistent framework through which to utilize them.
 
 *** toml-parse.py
 
