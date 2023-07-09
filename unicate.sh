@@ -8,13 +8,13 @@ MOD_DIR_INPT="$DIR/inputs"
 MOD_DIR_ACNT="$MOD_DIR_INPT/accent/"
 MOD_DIR_BASE="$MOD_DIR_INPT/base-theme/"
 MOD_DIR_OTPT="$DIR/outputs/"
-BIN_DIR_TINT="$DIR/tint-methods/"
+BIN_DIR_RCOL="$DIR/recolor/"
 
 ## init a global variable to track which theme to work on
 TARGET_THEME=""
 
-## function to call a specific INPUT module script
-## takes the module name ($1), the type ($2) (inputs/base_theme/, inputs/accent/, or outputs/) 
+## function to call a specific module script
+## takes the module name ($1), the type ($2) (inputs/base_theme/, inputs/accent/, recolor/, or outputs/) 
 call_module(){
     ## define local names
     mod_name="$1"       ## name of module to be called (MUST have trailing /)
@@ -74,7 +74,7 @@ print_usage(){
     echo "usage:"
     echo "-a     define an accent color (sRGB hex code) or source (module name)"
     echo "-b     define a base color source (module name)"
-    echo "-c     define a tinting method (module name)"
+    echo "-c     define a recoloring method (module name)"
     echo "-C     use a different config file (path)"
     echo "-o     define an output (module name)"
     #echo "-O     initialize a theme associated with a specific module"

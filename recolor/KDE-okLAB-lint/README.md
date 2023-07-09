@@ -1,0 +1,2 @@
+# KDE-okLAB-lint
+This color tinting method matches the accent tinting method used by the KDE desktop. It translates the colors from sRGB to linear RGB, then to okLAB color space. The new color is formed by linearly interpolating both the a and b channels between the base value and the corresponding accent channel value. The amount it does this can be defined in a config pointed to by the active **output** module.

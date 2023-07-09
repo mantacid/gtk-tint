@@ -1,1 +1,2 @@
- cherrypicker==0.4.0
+cherrypicker==0.4.0
+colour-science==0.4.2
