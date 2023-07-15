@@ -1,0 +1,101 @@
+## Config values to be used when altering a GTK-2.0 theme
+
+## if a theme element doesnt have an entry in this table, or if the table is empty, default to using the values defined in the main config
+[[gtk2]]
+subdir = "gtk-2.0/"
+
+[gtk2.base_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.bg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.tooltip_bg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.selected_bg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.text_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.fg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.tooltip_fg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.selected_fg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.menubar_bg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.menubar_fg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.toolbar_bg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.toolbar_fg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.menu_bg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.menu_fg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.panel_bg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.panel_fg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.link_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.btn_bg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.btn_fg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.titlebar_bg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.titlebar_fg_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.primary_caret_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.secondary_caret_color]
+source = "kde_accent"
+factor = "0.2"
+
+[gtk2.accent_bg_color]
+source = "kde_accent"
+factor = "0.2"
