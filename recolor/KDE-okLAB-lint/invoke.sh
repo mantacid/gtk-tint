@@ -8,8 +8,11 @@
 ## WIP, Will be responsible for initializing themes.
 while getopts '-i' flag; do
   case "${flag}" in
+    i) echo "this accent module does not need to be initialized. Stopping operation."
+      ;;
     *) print_usage
-        exit 1 ;;
+      exit 1 
+      ;;
   esac
 done
 
