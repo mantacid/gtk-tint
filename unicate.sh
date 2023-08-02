@@ -26,11 +26,13 @@ call_module(){
     INVOKE_SCRIPT="invoke.sh"
     
     ## every module NEEDS an invoke script, usually adding one to a custom module is a drag-and-drop affair.
-    full_path="$DIR/$mod_type$mod_name"
+    full_path="$DIR""$mod_type""$mod_name""/"
     
     ## execute the module, passing the directory to the module
-    call="$full_path$INVOKE_SCRIPT $maybeflag"
-    source $call
+    call="$full_path""$INVOKE_SCRIPT"" $maybeflag"
+    echo $full_path
+    echo $call
+    $call
 }
 
 ## Load the config file at the specified path, write a flattened associated array to the empty associated array specified in the second argument
@@ -73,54 +75,75 @@ print_usage(){
     echo "SYNTAX: unicate [init|invoke] -[A|R|T|i] [ARGUMENTS]"
     echo "Passing no options runs the tool as normal, using the values from the default config."
     echo ""
-    echo "-h   print this message"
-    echo "-c [path/to/config]   pass the path to a different config file."
+    echo "-h   Print this message"
+    echo "-c [path/to/config]   Pass the path to a different config file."
     echo ""
     echo "init: sets up the tool, installing dependencies using the helper script."
     echo "The init command doesn't take any flags"
     echo ""
     echo "invoke: calls a module. exactly one of the capital letters must be passed, but the -i flag is optional."
-    echo "-A [module name]    tells unicate to invoke an ACCENT module. Takes the name of the module as a required argument."
-    echo "-R [module name]    tells unicate to invoke a RECOLOR module. Takes the name of the module as a required argument."
-    echo "-T [module name]    tells unicate to invoke a THEME module. Takes the name of the module as a required argument."
-    echo "-i    initializes the module specified. The behavior of this flag varies depending on what module type is being invoked. Info on this will be given when this flag is passed."
+    echo "-A [module name]    Tells unicate to invoke an ACCENT module. Takes the name of the module as a required argument."
+    echo "-R [module name]    Tells unicate to invoke a RECOLOR module. Takes the name of the module as a required argument."
+    echo "-T [module name]    Tells unicate to invoke a THEME module. Takes the name of the module as a required argument."
+    echo "-i    Initializes the module specified. The behavior of this flag varies depending on what module type is being invoked. Info on this will be given when this flag is passed."
+    echo "-r    Calls the reader function defined in the module. The presence of any arguments depends on the module being called."
+    echo "-w    Calls the writer function defined in the module. The presence of arguments depends on the module being called."
 }
 
 ## CASE HANDLING WIP##
 ## get the action and check if it exists
 ACTION="$1"
 ## handle flags for init operation
-if [ $ACTION = "init" ]; then
+if grep -q "init" <<< "$ACTION"; then
     ## run the setup script (WIP)
     echo "WIP"
 ## handle flags for invoke operation
-elif [ $ACTION = "invoke" ]; then
-    ## setup some logic varia${OPTAbles here to get the proper scope
-    local do_init=""
-    local type_to_invoke=""
-    local name_to_invoke=""
+elif grep -q "invoke" <<< "$ACTION"; then
+    ## setup some logic variables here to get the proper scope
+    declare -g invoked_action
+    declare -g type_to_invoke
+    declare -g name_to_invoke
     
-    while getopts 'A:R:T:i' flag; do
+    while getopts 'A:R:T:ir::w::' flag; do
         case "${flag}" in
             A) ## prep an ACCENT module for invocation
-            type_to_invoke="accent/"
+            type_to_invoke="$MOD_DIR_ACNT"
             name_to_invoke="${OPTARG}"
                 ;;
             R) ## prep a RECOLOR module for invocation
-            type_to_invoke="recolor/"
+            type_to_invoke="$MOD_DIR_RCOL"
             name_to_invoke="${OPTARG}"
                 ;;
             T) ## prep a THEME module for invocation
-            type_to_invoke="themes/"
+            type_to_invoke="$MOD_DIR_THME"
             name_to_invoke="${OPTARG}"
                 ;;
             i) ## pass the -i flag to the invoke script of the specified module
-            do_init="-i"
+            invoked_action="-i"
+                ;;
+            r) ## pass the -r flag and any options to the envoke script of the specified module
+            ##check for flag's arguments
+            if [[ -n ${OPTARG} ]];
+            then
+                invoked_action="-r ${OPTARG}"
+            else
+                invoked_action="-r"
+            fi
+                ;;
+            w) ## pass the -w flag and any options to the invoke script of the specified module
+            ## check for flag's arguments
+            if [[ -n ${OPTARG} ]];
+            then
+                invoked_action="-w ${OPTARG}"
+            else
+                invoked_action="-w"
+            fi
                 ;;
         esac
     done
     ## invoke the module
-    call_module "$name_to_invoke" "$type_to_invoke" "$do_init"
+    echo $type_to_invoke
+    call_module "$name_to_invoke" "$type_to_invoke" "$invoked_action"
     
 ## handle flags for no operations.
 else
@@ -138,13 +161,3 @@ else
         esac
     done
 fi
-
-## TESTS for config parser, will remove later!
-confstr="$DIR/main-conf.toml"
-declare -A CONF_ASSOC_ARR
-
-load_config "$confstr" CONF_ASSOC_ARR
-
-for key in "${!CONF_ASSOC_ARR[@]}"; do
-    printf '%s = %s\n' "$key" "${CONF_ASSOC_ARR[$key]}"
-done

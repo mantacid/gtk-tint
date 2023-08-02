@@ -25,3 +25,7 @@ alter_suffix = "-tint"
 ## specify a list of output modules to call.
 ## these are directories containing a script, a config for that script, and other supporting files.
 outputs = [ 'gtk2/', 'gtk3/', 'gtk4/' ]
+
+## WIP feature: Theme Mapping
+## This feature aims to provide a few methods to map the key-value pairs of one theme to those of another, such that one theme module can provide coloring to several other themes.
+## themes will be mapped based on the okLAB lumiance values of the colors. This preserves theme readability and contrast.
