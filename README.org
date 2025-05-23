@@ -1,6 +1,9 @@
 *** NOTICE
 Because the applicability of the project has increased, I have decided to rename it to reflect this. The repository will still be here, but I may move it in the future. I will handle making sure that people coming to this page know where to find the new repo when it goes up.
 
+*** UPDATE 05-23-2025:
+this project is depreciated. If you're looking for config management tools that do the same stuff and more, I highly recommend Elkowar's tool "Yolk".
+
 * UniCATE (Previously GTK-Tint)
 UniCATE (Unify Colors Across Theme Engines) is a program designed to dynamically update various elements of your linux environment to allow for a more unified look.
 
